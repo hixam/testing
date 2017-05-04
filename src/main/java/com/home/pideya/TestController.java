@@ -47,6 +47,9 @@ import com.pusher.rest.Pusher;
 @RestController
 public class TestController {
 
+	
+	final static String ESTADO_CONFIRMADO = "Confirmado";
+	
 	ModelAndView modelAndView;
 	@Autowired
 	private PedidoRepository repository;
@@ -157,6 +160,7 @@ public class TestController {
 		        	L.add(pedido1);
 		        	L.add(pedido2);
 		        	p.setPedido(L);
+		        	p.setStatus("Recibido");
 		        	mongoOperation.save(p);
 		        	
 		        	Pusher pusher = new Pusher("327249", "25a63b5bdeb97ea6104e", "1c9a836061a07adf968b");
@@ -396,6 +400,44 @@ public class TestController {
 			        	//mongoOperation.save(p);
 			        	
 			        	request.setAttribute("count",  String.valueOf(count));
+			        }catch(Exception e){
+			            request.setAttribute("result", e.getLocalizedMessage());
+
+			        }
+			        return modelAndView;
+			    }
+				
+				
+				//confirmar pedido por el restaurante
+				@RequestMapping(value = "/test/confirmarPedido/{restaurante}/{id}", method = {RequestMethod.POST,RequestMethod.GET})
+				@ResponseBody
+				public ModelAndView ConfirmPedidoRes(HttpServletRequest request,@PathVariable("id") String id,@PathVariable("restaurante") String restaurante) {
+					modelAndView = new ModelAndView("pedidos");
+					//request.setAttribute("res", res);
+			        System.out.println("==== in carrito ====");
+			        int count=0;
+			        try{
+			        	Pedido p = new Pedido();
+			        	if(id!=null)
+			        	{
+			        		p.setId(id);
+			        	}
+			        	Query searchUserQuery2 = new Query(Criteria.where("id").is(id));
+						
+						Pedido ped = mongoOperation.findOne(searchUserQuery2, Pedido.class);
+						if (ped!=null)
+						{
+							ped.setStatus(ESTADO_CONFIRMADO);
+							mongoOperation.save(ped);
+						}
+			        	
+						Query searchUserQuery = new Query(Criteria.where("restaurante").is(restaurante));
+						List ped2 = mongoOperation.find(searchUserQuery, Pedido.class);
+					    request.setAttribute("pList", ped2);
+				   return modelAndView;
+						
+			        	//mongoOperation.save(p);
+			        	
 			        }catch(Exception e){
 			            request.setAttribute("result", e.getLocalizedMessage());
 

@@ -13,27 +13,66 @@
 #alertAudio {
 	display: none;
 }
+
+#body {
+	background-color: #666363;
+}
+
+td,tr {
+    color: white;
+}
 </style>
 <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="<c:url value="/resources/js/push.min.js" />"></script>
 <script src="<c:url value="/resources/audiojs/audio.min.js" />"></script>
 <script src="<c:url value="/resources/howler.js" />"></script>
 
-<script
+<script type="text/javascript" 
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script
+<script type="text/javascript" 
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
 </head>
-<body>
+<body id="body">
+
+
+
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>This is a small modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 	<div class="container">
-		<h2>Tabla de pedidos</h2>
-		<div class="table-responsive">
+  </br></br>
+  <div class="jumbotron">
+   <center> <h1>Tabla pedidos</h1></center>      
+        
+</div>		<div class="table-responsive">
 			<table class="table">
 				<thead>
 					<tr>
@@ -41,6 +80,8 @@
 						<th>Restaurante</th>
 						<th>Mesa</th>
 						<th>Pedido</th>
+						<th>Estado</th>
+						<th>Accion</th>
 					</tr>
 				</thead>
 				<tbody id="tabla">
@@ -48,8 +89,6 @@
 						for (Pedido p : (List<Pedido>) request.getAttribute("pList")) {
 					%>
 					<tr>
-
-
 						<td><%=p.getId()%></td>
 						<td><%=p.getRestaurante()%></td>
 						<td><%=p.getMesa()%></td>
@@ -59,6 +98,13 @@
 							%> <%=ped + ","%> <%
  	}
  %>
+						</td>
+						<td><%if(p.getStatus().equals("Confirmado")){ %>
+						<span class="glyphicons glyphicon glyphicon-ok"></span>
+						<%} %> <%= p.getStatus() != null ? p.getStatus() : "Sin estado" %></td>
+						<td> 
+						<a type="submit" <%if(p.getStatus().equals("Confirmado")) {%> ""<% }else{ %> href= "/pideya/test/confirmarPedido/<%=p.getRestaurante() != null ? p.getRestaurante() : "nada" %>/<%=p.getId() != null ? p.getId() : "nada" %><%} %>" <%=p.getStatus() != null && p.getStatus().equals("Confirmado") ? "DISABLED" : "" %> class="btn btn-success">Confirmar</a>
+
 						</td>
 					</tr>
 					<%
@@ -117,13 +163,17 @@
     channel.bind('my-event', function(data) {
     	var a= data.message;
     	i++;
-    	navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-    	if (navigator.vibrate) {
-    		  alert('¡Puedes hacerlo vibrar!');
-    		  window.navigator.vibrate(1000);
-    		} else {
-    			alert('No puedes hacerlo vibrar :');
-    		}
+    	
+//     	//vibrar movil
+//     	navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+//     	if (navigator.vibrate) {
+//     		  alert('¡Puedes hacerlo vibrar!');
+//     		  window.navigator.vibrate(1000);
+//     		} else {
+//     			alert('No puedes hacerlo vibrar :');
+//     		}
+    	
+    	
 //     	var aud = new Audio();
 //     	aud.src = "<c:url value="/resources/alert.mp3" />";
     	     	 
@@ -181,7 +231,7 @@
 //     	$('#play-button').click(function(){ audio.play(); });
 //     $('#alertAudio').click(function(){ audio.play(); });
 
-		$('#tabla').append("<tr><td>"+a.id+"</td><td>"+a.restaurante+"</td><td>"+a.mesa+"</td><td>"+a.pedido+"</td></tr>");
+		$('#tabla').append("<tr><td>"+a.id+"</td><td>"+a.restaurante+"</td><td>"+a.mesa+"</td><td>"+a.pedido+"</td><td>"+a.status+"</td>"+ "<td><a type='button' href='/pideya/test/confirmarPedido/"+a.restaurante +"/"+a.id+ "' class='btn btn-success'>Confirmar</a></td></tr>");
 		var re = 0;
 		if(i > 0) 
 			re=1 ;

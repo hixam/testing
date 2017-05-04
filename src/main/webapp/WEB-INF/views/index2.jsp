@@ -88,6 +88,7 @@ article {
 	<%
 		Pedido p = new Pedido();
 		p = (Pedido) request.getAttribute("pedido");
+		String res = (String)request.getAttribute("res");
 	%>
 	<!-- Wrapper -->
 	<div id="wrapper">
@@ -95,7 +96,7 @@ article {
 		<!-- Header -->
 		<header id="header">
 			<h1>
-				<a href="index.html"><strong>Restaurante </strong><%=request.getAttribute("res")%></a>
+				<a href="index.html"><strong>Restaurante </strong><%=res != null ? res : (p!=null ? p.getRestaurante() : "mm") %></a>
 			</h1>
 			<nav>
 				<ul>

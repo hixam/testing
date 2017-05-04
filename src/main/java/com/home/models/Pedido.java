@@ -11,6 +11,14 @@ public class Pedido {
 	String id;
 	String restaurante;
 	String mesa;
+	String status;
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public List<String> getPedido() {
 		return pedido;
 	}
@@ -19,9 +27,6 @@ public class Pedido {
 	}
 	List<String> pedido;
 
-
-	
-	
 	public String getId() {
 		return id;
 	}
