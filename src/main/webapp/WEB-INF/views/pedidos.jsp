@@ -87,6 +87,7 @@ td,tr {
 				<tbody id="tabla">
 					<%
 						for (Pedido p : (List<Pedido>) request.getAttribute("pList")) {
+							if(p.getStatus()!=null){
 					%>
 					<tr>
 						<td><%=p.getId()%></td>
@@ -101,14 +102,14 @@ td,tr {
 						</td>
 						<td><%if(p.getStatus().equals("Confirmado")){ %>
 						<span class="glyphicons glyphicon glyphicon-ok"></span>
-						<%} %> <%= p.getStatus() != null ? p.getStatus() : "Sin estado" %></td>
+						<%} %> <%=(p.getStatus() != null) ? p.getStatus() : "Sin estado" %></td>
 						<td> 
 						<a type="submit" <%if(p.getStatus().equals("Confirmado")) {%> ""<% }else{ %> href= "/pideya/test/confirmarPedido/<%=p.getRestaurante() != null ? p.getRestaurante() : "nada" %>/<%=p.getId() != null ? p.getId() : "nada" %><%} %>" <%=p.getStatus() != null && p.getStatus().equals("Confirmado") ? "DISABLED" : "" %> class="btn btn-success">Confirmar</a>
 
 						</td>
 					</tr>
 					<%
-						}
+							}}
 					%>
 				</tbody>
 			</table>

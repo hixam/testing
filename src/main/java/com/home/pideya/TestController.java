@@ -106,7 +106,7 @@ public class TestController {
 		//modelAndView.addObject("users", ped);
 		return modelAndView;
 	}
-    
+    //compra realizada
 	@RequestMapping(value = "/test/comprado/{id}", method = {RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
 	public ModelAndView greeting(HttpServletRequest request,@PathVariable("id") String id) {
@@ -213,12 +213,13 @@ public class TestController {
 								L = ped.getPedido();
 								L.add(pedido2);
 								ped.setPedido(L);
+								ped.setStatus("Recibido");
 					        	mongoOperation.save(ped);
 					        	Pusher pusher = new Pusher("327249", "25a63b5bdeb97ea6104e", "1c9a836061a07adf968b");
 								pusher.setCluster("eu");
 								pusher.setEncrypted(true);
 								
-								pusher.trigger("my-channel", "my-event", Collections.singletonMap("message", p));
+								pusher.trigger("my-channel", "my-event", Collections.singletonMap("message", ped));
 					        	
 								for(String s :  ped.getPedido())
 								{
