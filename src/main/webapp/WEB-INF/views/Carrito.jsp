@@ -17,10 +17,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script
-	src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
 <title>Carrito de compra - PideYa</title>
 </head>
 <body id="body">
@@ -33,6 +29,7 @@
 	<center>
 		</br>
 		</br>
+		<form action="/pideya/test/confirmar/<%=p.getId()%>" method="get">
 		<div style="width: 50%" class="panel panel-info">
 			<div class="panel-heading">
 				Tienes
@@ -54,15 +51,15 @@
 			<%
 				}
 			%>
-			<button type="button" class="btn btn-success">Pagar y
-				finalizar compa</button></br></br>
+			
+			<button  type="submit" class="btn btn-info"
+												data-inline="true">
+												<font color="black">Pagar y finalizar compa</font>
+											</button></br></br>
 		</div>
 		
+		</form>
 	</center>
-
-
-
-
 
 
 	<%-- <h1><%=count %></h1> --%>

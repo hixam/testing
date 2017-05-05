@@ -59,7 +59,7 @@ public class TestController {
 	MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 	
 	
-	
+	//Main page
     @CrossOrigin(origins = "http://localhost:9000/pideya")
 	@RequestMapping(value = "/test/{qrCode}", method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -69,19 +69,7 @@ public class TestController {
 		Pedido p;
 		// List listAllPedidos = repository.findAll();
 		
-//			p = new Pedido();
-//			p.setMesa("mesa1");
-//			p.setPedido("Pizza");
-//			p.setRestaurante(qrCode);
-//			repository.save(p);
-	//		pList.add(p);
-//			
-//			p = new Pedido();
-//			p.setMesa("mesa2");
-//			p.setPedido("Burguer");
-//			p.setRestaurante("masmas");
-//			repository.save(p);
-//			pList.add(p);
+
 
 			Query searchUserQuery = new Query(Criteria.where("restaurante").is(qrCode));
 			
@@ -96,17 +84,19 @@ public class TestController {
 		
 		ModelAndView modelAndView = new ModelAndView("index2");
 		String[] parts = qrCode.split("YY");
+		if(parts.length==2){
 		String RESTAURANTE = parts[0]; 
 		String MESA = parts[1];
 		
 		request.setAttribute("res", RESTAURANTE);
 		request.setAttribute("mesa", MESA);
+		}
 	  //  request.setAttribute("pList", ped);
 		//if(ped!=null && ped.size() > 0)
 		//modelAndView.addObject("users", ped);
 		return modelAndView;
 	}
-    //compra realizada
+    //compra realizada, lleva a Mis pedidos para ver el estado
 	@RequestMapping(value = "/test/comprado/{id}", method = {RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
 	public ModelAndView greeting(HttpServletRequest request,@PathVariable("id") String id) {
@@ -134,6 +124,7 @@ public class TestController {
         return modelAndView;
     }
 	
+	//listado de pedidos de un restaurante
 		@RequestMapping(value = "/test/pedidos/{restaurante}", method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 		@ResponseBody
 		public ModelAndView verPedidos(HttpServletRequest request,@PathVariable("restaurante") String restaurante) {
@@ -144,7 +135,7 @@ public class TestController {
 		    request.setAttribute("pList", ped);
 	   return modelAndView;
 	   }
-		//confirmar directo 
+		//comprar directo 
 		@RequestMapping(value = "/test/confirmar", method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 		@ResponseBody
 		public ModelAndView test(HttpServletRequest request) {
@@ -190,6 +181,7 @@ public class TestController {
 				@ResponseBody
 				public ModelAndView comprarDespuesDeMas(HttpServletRequest request,@PathVariable("id") String id) {
 					modelAndView = new ModelAndView("confPedido");
+					boolean isCarrito =false;
 					 try{
 						 Pedido p = new Pedido();
 				        	String a = (String)request.getParameter("day");
@@ -211,7 +203,13 @@ public class TestController {
 							if (ped!=null)
 							{
 								L = ped.getPedido();
+								
+								//si es nulo, es que viene del carrito
+								if(pedido2!=null){
 								L.add(pedido2);
+								isCarrito=true;
+								}
+								
 								ped.setPedido(L);
 								ped.setStatus("Recibido");
 					        	mongoOperation.save(ped);
@@ -237,7 +235,8 @@ public class TestController {
 				        }
 				        return modelAndView;
 			   }
-		
+				
+		//pagina factura
 		@RequestMapping(value = "/test/test2/{id}", method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 		@ResponseBody
 		public ModelAndView test2(HttpServletRequest request,@PathVariable("id") String id) {

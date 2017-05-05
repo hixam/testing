@@ -213,7 +213,7 @@ td,tr {
 //     	    audio.play();
 //     	});
     	
-    	alert("Nuevo pedido de la "+ a.mesa);
+    	//alert("Nuevo pedido de la "+ a.mesa);
     	
 
     	
