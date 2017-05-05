@@ -25,10 +25,21 @@
 		String count = ((String) request.getAttribute("count"));
 		List<String> lPedido = p.getPedido();
 	%>
+<div class="container">
+</br></br> 
+<div class="jumbotron col-xs-12  center">
+  <div class="row">
+                        <h1 style="float:right; ">Carrito compra</h1>
 
+                  
+<img alt="" src="https://cupon.es/magazin/wp-content/uploads/sites/15/2013/11/1384199830_cart-empty.png">  
+            </div>
+</div>
+</div>
 	<center>
 		</br>
 		</br>
+		<div class="col-lg-12 col-centered">
 		<form action="/pideya/test/confirmar/<%=p.getId()%>" method="get">
 		<div style="width: 50%" class="panel panel-info">
 			<div class="panel-heading">
@@ -45,23 +56,30 @@
 			%>
 
 			<div class="panel-body"></div>
-			<div style="width:45%;" class="alert alert-warning">
+			<div style="width:45%;" class="alert alert-success">
 				<%=s%><strong style="float:right;">5 &#8364;</strong>
 			</div>
 			<%
 				}
 			%>
 			
-			<button  type="submit" class="btn btn-info"
+			<button  type="submit" class="btn btn-default"
 												data-inline="true">
 												<font color="black">Pagar y finalizar compa</font>
-											</button></br></br>
+											</button>
+											<button type="button" class="btn btn-success" onclick="goBack()">Seguir comprando</button>
+											
+											</br></br>
 		</div>
 		
-		</form>
+		</form></div>
 	</center>
 
-
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
 	<%-- <h1><%=count %></h1> --%>
 	<!-- <br> -->
 	<%-- <h1><%=p.getMesa() %></h1> --%>
