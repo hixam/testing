@@ -8,6 +8,9 @@
 body {
 	background-color: #666363;
 }
+
+
+
 </style>
 <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -51,7 +54,7 @@ body {
 	%>
 
 	<center>
-		</br> </br>
+		</br>
 
 		<div class="main">
 			<div class="container tim-container">
@@ -62,8 +65,8 @@ body {
 <div class="row">
     <div  class="col-xs-12">
 						<div style="background-color:#D2D2D2;" class="panel panel-default">
-							<div  class="panel-heading">
-								Tienes
+							<div style="background-color:#837476;"  class="panel-heading">
+								<i style="float: left;" class="material-icons">shopping_cart</i>Tienes
 								<%=count%>
 								cosa(s) en el carrito
 							</div>
@@ -75,19 +78,18 @@ body {
 			%> 
      <div  class="panel-body"></div>
 			<div style="margin-bottom: 0;margin-top: 0;" class="alert alert-success">
-				<%=s%><strong style="float:right;">5 &#8364;</strong>
+				<i  style="float:left;" class="material-icons">delete_forever</i><%=s%><strong style="float:right;">5 &#8364;</strong>
 			</div>
       <%} %>
- </br><hr>
- 			<div style="float: right;" class="panel-body"><h2>Total:20&#8364;</h2></div> 
- </br> 
+<hr>
+ 			<div style="float: right;" class="panel-body"><h3>Total:20&#8364;</h3></div> 
 	<button  type="submit" class="btn btn-default"
 												data-inline="true">
-												<font color="black">Pagar y finalizar compa</font>
+												<font color="black"><i class="material-icons">payment</i>Pagar y finalizar compa</font>
 											</button>
-											<button type="button" class="btn btn-success" onclick="goBack()">Seguir comprando</button>
+											<button type="button" class="btn btn-success" onclick="goBack()"><i class="material-icons">add_shopping_cart</i>Seguir comprando</button>
 											
-											</br></br>
+											</br></br></br> 
 </div></div>
 </form>
 				</div>
