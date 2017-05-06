@@ -13,7 +13,7 @@
 //Así como en CSS3, tenemos variantes para distintos navegadores. Tan solo obtenemos la función automáticamente
 //cuando el navegador encuentre la que exista en su motor de javascript.
 navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-
+s
 //Ahora preguntamos si realmente existe.
 if (navigator.vibrate) {
   alert('¡Puedes hacerlo vibrar!');

@@ -15,104 +15,221 @@
 }
 
 #body {
-	background-color: #666363;
+	background-color: #E5E5E5;
 }
 
-td,tr {
-    color: white;
+td, tr {
+	color: black;
 }
 </style>
-<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 
+<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script
+<script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="<c:url value="/resources/js/push.min.js" />"></script>
 <script src="<c:url value="/resources/audiojs/audio.min.js" />"></script>
 <script src="<c:url value="/resources/howler.js" />"></script>
 
-<script type="text/javascript" 
+<script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script type="text/javascript" 
+<script type="text/javascript"
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<link
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet">
+<link
+	href="http://demos.creative-tim.com/material-dashboard/assets/css/demo.css"
+	rel="stylesheet" />
+<link
+	href="http://demos.creative-tim.com/material-dashboard/assets/css/material-dashboard.css"
+	rel="stylesheet" />
+	<link rel="canonical" href="http://www.creative-tim.com/product/material-kit-pro" />
+ 
 
 </head>
 <body id="body">
 
 
 
- <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>This is a small modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Modal Header</h4>
+				</div>
+				<div class="modal-body">
+					<p>This is a small modal.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
 
 
 
 
 
 	<div class="container">
-  </br></br>
-  <div class="jumbotron">
-   <center> <h1>Tabla pedidos</h1></center>      
-        
-</div>		<div class="table-responsive">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Restaurante</th>
-						<th>Mesa</th>
-						<th>Pedido</th>
-						<th>Estado</th>
-						<th>Accion</th>
-					</tr>
-				</thead>
-				<tbody id="tabla">
-					<%
-						for (Pedido p : (List<Pedido>) request.getAttribute("pList")) {
-							if(p.getStatus()!=null){
-					%>
-					<tr>
-						<td><%=p.getId()%></td>
-						<td><%=p.getRestaurante()%></td>
-						<td><%=p.getMesa()%></td>
-						<td>
+		</br>
+
+	
+
+
+
+   <!--        primary navbar  -->
+					<nav class="navbar navbar-primary">
+						<div class="container">
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-primary">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+								<a class="navbar-brand" href="#pablo">Tabla de pedidos</a>
+							</div>
+
+							<div class="collapse navbar-collapse" id="example-navbar-primary">
+								<ul class="nav navbar-nav navbar-right">
+									<li class="active">
+		                                <a href="#pablo">
+											<i class="material-icons">home</i>
+											Inicio
+		                                </a>
+		                            </li>
+		                            <li>
+		                                <a href="#pablo">
+											<i class="material-icons">show_chart</i>
+		                                    Estadisticas
+		                                </a>
+		                            </li>
+		                            <li>
+		                                <a href="#pablo">
+											<i class="material-icons">exit_to_app</i>
+											Cerrar session
+		                                </a>
+		                            </li>
+								</ul>
+							</div>
+						</div>
+<!-- 						<div class="col-md-12"> -->
+<%-- <center><img class="img-responsive" src="http://synergyconsultants.com/wp-content/uploads/2015/07/restaurant-design-header.jpg" alt="PideYa!"></center> --%>
+
+<!-- </div> -->
+					</nav>
+	    <!--        end primary navbar -->
+		<div class="table-responsive"> 
+<div class="col-md-12">
+<center><img class="img-responsive" src="http://synergyconsultants.com/wp-content/uploads/2015/07/restaurant-design-header.jpg" alt="PideYa!"></center>
+<hr> 
+
+</div>
+
+			<div class="col-md-12">
+			
+				<div class="card">
+					<div class="card-header" data-background-color="purple">
+					
+						<h4 class="title">
+							Restaurante
+							<%=request.getAttribute("res")%></h4>
+						<p class="category">
+							total pedidos :
+							<%=((List<Pedido>) request.getAttribute("pList")).size()%>
+
 							<%
-								for (String ped : p.getPedido()) {
-							%> <%=ped + ","%> <%
+								int i = 0;
+								int y = 0;
+							%>
+							<%
+								for (Pedido pe : (List<Pedido>) request.getAttribute("pList")) {
+							%>
+
+							<%
+								if (pe.getStatus() != null && pe.getStatus().equals("Confirmado")){
+										i++;}
+									else{
+										y++;}
+							%>
+
+							<%
+								}
+							%>
+
+
+							&emsp; pedidos confirmados : <span class="badge"
+								style="background: #65EB6E;"><%=i%></span> &emsp; pedidos
+							pendientes : <span class="badge" style="background: red;"><%=y%></span>
+						</p>
+					</div>
+					<div class="card-content table-responsive">
+						<table class="table">
+							<thead class="text-primary">
+								<th>#</th>
+								<th>Restaurante</th>
+								<th>Mesa</th>
+								<th>Pedido</th>
+								<th>Estado</th>
+								<th>Accion</th>
+							</thead>
+
+							<tbody id="tabla">
+								<%
+									for (Pedido p : (List<Pedido>) request.getAttribute("pList")){
+										if (p.getStatus() != null) {
+								%>
+								<tr>
+									<td> <%=p.getId()%></td>
+									<td><%=p.getRestaurante()%></td>
+									<td><%=p.getMesa()%></td>
+									<td>
+										<%
+											for (String pedd : p.getPedido()) {
+										%> <%=pedd + ","%> <%
  	}
  %>
-						</td>
-						<td><%if(p.getStatus().equals("Confirmado")){ %>
-						<span class="glyphicons glyphicon glyphicon-ok"></span>
-						<%} %> <%=(p.getStatus() != null) ? p.getStatus() : "Sin estado" %></td>
-						<td> 
-						<a type="submit" <%if(p.getStatus().equals("Confirmado")) {%> ""<% }else{ %> href= "/pideya/test/confirmarPedido/<%=p.getRestaurante() != null ? p.getRestaurante() : "nada" %>/<%=p.getId() != null ? p.getId() : "nada" %><%} %>" <%=p.getStatus() != null && p.getStatus().equals("Confirmado") ? "DISABLED" : "" %> class="btn btn-success">Confirmar</a>
+									</td>
+									<td>
+										<%
+											if (p.getStatus().equals("Confirmado")) {
+										%> <i class="material-icons">check_circle</i> <%
+ 	} else {
+ %> <i class="material-icons">info</i> <%
+ 	}
+ %> <%=(p.getStatus() != null) ? p.getStatus() : "Sin estado"%>
 
-						</td>
-					</tr>
-					<%
-							}}
-					%>
-				</tbody>
-			</table>
+
+
+									</td>
+									<td><a type="submit"
+										<%if (p.getStatus().equals("Confirmado")) {%> ""<%} else {%>
+										href="/pideya/test/confirmarPedido/<%=p.getRestaurante() != null ? p.getRestaurante() : "nada"%>/<%=p.getId() != null ? p.getId() : "nada"%>"
+										<%}%>
+										<%=p.getStatus() != null && p.getStatus().equals("Confirmado") ? "DISABLED" : ""%>
+										class="btn btn-primary pull-right">Confirmar</a></td>
+								</tr>
+								<%
+									}
+									
+								
+								%>
+							</tbody>
+							<%}  %>
+						</table>
+
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 <head>

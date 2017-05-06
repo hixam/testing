@@ -132,6 +132,7 @@ public class TestController {
 			modelAndView = new ModelAndView("pedidos");
 			Query searchUserQuery = new Query(Criteria.where("restaurante").is(restaurante));
 			List ped = mongoOperation.find(searchUserQuery, Pedido.class);
+			request.setAttribute("res", restaurante);
 		    request.setAttribute("pList", ped);
 	   return modelAndView;
 	   }

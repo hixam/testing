@@ -67,6 +67,17 @@ article {
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet">
+<link
+	href="http://demos.creative-tim.com/material-dashboard/assets/css/demo.css"
+	rel="stylesheet" />
+<link
+	href="http://demos.creative-tim.com/material-dashboard/assets/css/material-dashboard.css"
+	rel="stylesheet" />
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -83,13 +94,16 @@ article {
 <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 </head>
-<body>
+<body >
 
 	<%
 		Pedido p = new Pedido();
 		p = (Pedido) request.getAttribute("pedido");
 		String res = (String)request.getAttribute("res");
 	%>
+	
+	 
+	
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -154,7 +168,7 @@ article {
 // 		});
 
 <%-- 		$('#pinga').append("<div class='panel-heading'> Restaurante: <%=request.getAttribute("res")%>  </div>"); --%>
-		$('#pinga').append("</br><div style=' border-radius: 20%;width:70%;background:#575454;' class='jumbotron'><img src='http://cdn.animalgourmet.com/wp-content/uploads/2014/04/animal_gourmet_logo.png'  class='img-responsive'></div>");
+		$('#pinga').append("</br><img src='http://www.mooringsmotherwell.co.uk/images/librariesprovider19/default-album/headers/conference-food-header.jpg?sfvrsn=2'  class='img-responsive'></div></div>");
 
 });
 				
@@ -689,5 +703,6 @@ article {
 				<script src="<c:url value="/resources/assets/js/util.js" />"></script>
 				<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 				<script src="<c:url value="/resources/assets/js/main.js" />"></script>
+				</center></center></div>
 </body>
 </html>
