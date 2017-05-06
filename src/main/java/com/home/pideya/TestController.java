@@ -100,7 +100,6 @@ public class TestController {
 	@RequestMapping(value = "/test/comprado/{id}", method = {RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
 	public ModelAndView greeting(HttpServletRequest request,@PathVariable("id") String id) {
-		
 		modelAndView = new ModelAndView("MisPedidos");
 		//request.setAttribute("res", res);
         System.out.println("==== in pedido ====");
@@ -140,8 +139,10 @@ public class TestController {
 		@RequestMapping(value = "/test/confirmar", method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 		@ResponseBody
 		public ModelAndView test(HttpServletRequest request) {
-			modelAndView = new ModelAndView("confPedido");
+			modelAndView = new ModelAndView("MisPedidos");
 			 try{
+				 
+				 //recoge el pedido directamente del formulario --> compra directa 
 		        	Pedido p = new Pedido();
 		        	String a = (String)request.getParameter("day");
 		        	p.setRestaurante((String)request.getParameter("restaurante"));
@@ -149,28 +150,25 @@ public class TestController {
 		        	String pedido1 = ((String)request.getParameter("day"));
 		        	String pedido2 = ((String)request.getParameter("day2"));
 		        	List<String> L = new ArrayList<String>();
+		        	
+		        	//IMPLEMENTAR FUNCION PARA LEER POSIBLES DATOS RELLENADOS DEL FORMULARIO DE COMPRA 
+		        	
 		        	L.add(pedido1);
 		        	L.add(pedido2);
 		        	p.setPedido(L);
 		        	p.setStatus("Recibido");
 		        	mongoOperation.save(p);
 		        	
+		        	//NOTIFICACION PUSH AL RESTAURANTE 
 		        	Pusher pusher = new Pusher("327249", "25a63b5bdeb97ea6104e", "1c9a836061a07adf968b");
 					pusher.setCluster("eu");
 					pusher.setEncrypted(true);
-					
+					//PARAS EL PEDIDO "P" JUNTO A LA NOTIFICACION PUSH (etiqueta "message")
 					pusher.trigger("my-channel", "my-event", Collections.singletonMap("message", p));
-		        	
-//		        	//pusher start
-//		        	Pusher pusher = new Pusher("327249", "25a63b5bdeb97ea6104e", "1c9a836061a07adf968b");
-//					pusher.setCluster("eu");
-//					pusher.setEncrypted(true);
-//					pusher.trigger("my-channel", "my-event", Collections.singletonMap("message", p));
-//		        	//pedidospusher end
 					
 					request.setAttribute("result", "Pedido enviado");
 		        	request.setAttribute("pedido", p);
-		        	modelAndView.addObject("pedido", p);
+		        	request.setAttribute("count", String.valueOf(L.size()));
 		        }catch(Exception e){
 		            request.setAttribute("result", e.getLocalizedMessage());
 		        }
@@ -181,16 +179,11 @@ public class TestController {
 				@RequestMapping(value = "/test/confirmar/{id}", method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 				@ResponseBody
 				public ModelAndView comprarDespuesDeMas(HttpServletRequest request,@PathVariable("id") String id) {
-					modelAndView = new ModelAndView("confPedido");
+					modelAndView = new ModelAndView("MisPedidos");
 					boolean isCarrito =false;
 					 try{
 						 Pedido p = new Pedido();
-				        	String a = (String)request.getParameter("day");
-				        	String pedido1 = ((String)request.getParameter("day"));
-				        	String pedido2 = ((String)request.getParameter("day2"));
 				        	List<String> L = new ArrayList<String>();
-				        	//L.add(pedido1);
-				        	//L.add(pedido2);
 				        	int count=0;			        	
 				        	
 				        	if(id!=null)
@@ -204,12 +197,7 @@ public class TestController {
 							if (ped!=null)
 							{
 								L = ped.getPedido();
-								
-								//si es nulo, es que viene del carrito
-								if(pedido2!=null){
-								L.add(pedido2);
-								isCarrito=true;
-								}
+							
 								
 								ped.setPedido(L);
 								ped.setStatus("Recibido");
@@ -225,7 +213,6 @@ public class TestController {
 									count++;
 								}
 							}
-				        	
 							request.setAttribute("pedido",ped);
 				        	//mongoOperation.save(p);
 				        	
@@ -243,13 +230,14 @@ public class TestController {
 		public ModelAndView test2(HttpServletRequest request,@PathVariable("id") String id) {
 			
 			modelAndView = new ModelAndView("index");
+			modelAndView = greeting(request, id);
 			 try{
 		        	Pedido p = new Pedido();
 					Query query = new Query(Criteria.where("id").is(id));
 		        	p = mongoOperation.findOne(query, Pedido.class);
 		        	//p = (Pedido)request.getAttribute("pedido");
 					request.setAttribute("result", "Pedido enviado");
-		        	request.setAttribute("pedidoF", p);
+		        	request.setAttribute("pedido", p);
 		        }catch(Exception e){
 		            request.setAttribute("result", e.getLocalizedMessage());
 		        }
@@ -315,6 +303,7 @@ public class TestController {
 				}
 	        	
 				request.setAttribute("pedido",ped);
+				request.setAttribute("res", ped.getRestaurante());
 	        	//mongoOperation.save(p);
 	        	
 	        	request.setAttribute("count", String.valueOf(count));
