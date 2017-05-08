@@ -33,7 +33,7 @@
 
     <mvc:annotation-driven />
     
-<mongo:mongo host="127.0.0.1" port="27017" />
+<mongo:mongo host="84.78.131.211" port="27017" />
 	<mongo:db-factory dbname="testdb2" />
 
 	<beans:bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
