@@ -188,13 +188,14 @@ public class TestController {
 				        	
 				        	if(id!=null)
 				        	{
-				        		p.setId(id);
+				        			p.setId(id);
 				        	}
 				        	
 				        	Query searchUserQuery = new Query(Criteria.where("id").is(id));
 							
 							Pedido ped = mongoOperation.findOne(searchUserQuery, Pedido.class);
-							if (ped!=null)
+							//si el pedido ya existe y no tiene estado --> posible entrada desde MisPedidos (refresh), entonces no se ha de guardar de nuevo en la db ni lanzar el push porque el pedido ya fue notificado.
+							if (ped!=null && ped.getStatus() == null)
 							{
 								L = ped.getPedido();
 							

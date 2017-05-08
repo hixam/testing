@@ -76,12 +76,6 @@ body {
 						<i class="material-icons">&#xE854;</i>Tienes
 						<%=count%>
 						cosa(s) en el carrito
-
-
-
-
-
-
 					</p>
 					<div style="background-color: #837476;" class="panel-heading">
 <!-- 						<i class="material-icons">&#xE854;</i>Tienes -->

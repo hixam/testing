@@ -1,5 +1,7 @@
 package com.home.models;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,57 +10,49 @@ public class Users {
 
     @Id
     private String id;
+	private String username;
+    private String email;
+    private List<Pedido> pListId;
+    
+    public List<Pedido> getpListId() {
+		return pListId;
+	}
 
-    private String firstname;
-    private String lastname;
+	public void setpListId(List<Pedido> pListId) {
+		this.pListId = pListId;
+	}
 
-    public Users() {}
-
-    public Users(String firstName, String lastName) {
-        this.firstname = firstName;
-        this.lastname = lastName;
-    }
-
- 	/**
-	 * @return the id
-	 */
 	public String getId() {
 		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return firstname;
+	public String getUsername() {
+		return username;
 	}
 
-	/**
-	 * @param firstName the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstname = firstName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	/**
-	 * @return the lastName
-	 */
-	public String getLastName() {
-		return lastname;
+	public String getEmail() {
+		return email;
 	}
 
-	/**
-	 * @param lastName the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastname = lastName;
+	public void setEmail(String email) {
+		this.email = email;
 	}
+
+
+
+    public Users() {}
+
+    public Users(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
 
 }

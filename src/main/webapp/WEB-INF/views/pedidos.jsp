@@ -349,7 +349,7 @@ td, tr {
 //     	$('#play-button').click(function(){ audio.play(); });
 //     $('#alertAudio').click(function(){ audio.play(); });
 
-		$('#tabla').append("<tr><td>"+a.id+"</td><td>"+a.restaurante+"</td><td>"+a.mesa+"</td><td>"+a.pedido+"</td><td>"+a.status+"</td>"+ "<td><a type='button' href='/pideya/test/confirmarPedido/"+a.restaurante +"/"+a.id+ "' class='btn btn-success'>Confirmar</a></td></tr>");
+		$('#tabla').append("<tr><td>"+a.id+"</td><td>"+a.restaurante+"</td><td>"+a.mesa+"</td><td>"+a.pedido+"</td><td><i class='material-icons'>info</i>"+a.status+"</td>"+ "<td><a type='button' href='/pideya/test/confirmarPedido/"+a.restaurante +"/"+a.id+ "' class='btn btn-primary pull-right'>Confirmar</a></td></tr>");
 		var re = 0;
 		if(i > 0) 
 			re=1 ;

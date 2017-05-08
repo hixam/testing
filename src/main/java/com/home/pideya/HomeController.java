@@ -38,18 +38,8 @@ public class HomeController {
 		// repository.save(u);
 		// }
 
-		List<Users> users2 = new ArrayList<Users>();
-
-		List users = repository.findAll();
-		for (Users dd : (List<Users>) users) {
-			if (dd.getFirstName().equals("pingaSolar2"))
-				repository.delete(dd.getId());
-			else
-				users2.add(dd);
- 
-		}
-		ModelAndView modelAndView = new ModelAndView("index");
-		modelAndView.addObject("users", users2);
+	
+		ModelAndView modelAndView = new ModelAndView("Login");
 		return modelAndView;
 	}
 
